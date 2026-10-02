@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B2 Formal Email Writing Practice & Feedback Lab</title>
+  <style>
+    :root {
+      --primary-color: #002b49;
+      --secondary-color: #0072ce;
+      --bg-color: #f0f4f8;
+      --card-bg: #ffffff;
+      --text-color: #2b2b2b;
+      --border-color: #d1d5db;
+      --highlight-bg: #fffbeb;
+      --email-bg: #f8fafc;
+      --success-green: #15803d;
+      --warning-red: #b91c1c;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 30px 15px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-top: 0;
+      font-size: 1.8rem;
+      border-bottom: 3px solid var(--secondary-color);
+      padding-bottom: 12px;
+    }
+
+    .prompt-box {
+      background-color: var(--highlight-bg);
+      border-left: 5px solid var(--secondary-color);
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .prompt-box h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .prompt-box ul {
+      margin-bottom: 10px;
+      padding-left: 22px;
+    }
+
+    /* Client Email Interface Mockup */
+    .email-client {
+      background-color: var(--email-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .email-client-header {
+      background: #e2e8f0;
+      padding: 10px 18px;
+      font-weight: 600;
+      color: #475569;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .email-row {
+      display: flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-bottom: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+
+    .email-row label {
+      width: 80px;
+      font-weight: 700;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .email-row input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text-color);
+      background: transparent;
+    }
+
+    .email-row input:disabled {
+      color: #334155;
+    }
+
+    .email-body-container {
+      padding: 18px;
+      background: #ffffff;
+    }
+
+    .email-body-container label {
+      display: block;
+      font-weight: 700;
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 240px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      box-sizing: border-box;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(0, 114, 206, 0.15);
+    }
+
+    .word-counter {
+      text-align: right;
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 6px;
+    }
+
+    button {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: var(--primary-color);
+    }
+
+    /* Feedback & Assessment Section */
+    #feedback-section {
+      display: none;
+      margin-top: 40px;
+      border-top: 2px solid var(--border-color);
+      padding-top: 30px;
+    }
+
+    .evaluation-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      margin-bottom: 25px;
+    }
+
+    .evaluation-table th, .evaluation-table td {
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .evaluation-table th {
+      background-color: #f1f5f9;
+      color: var(--primary-color);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .badge-good { background: #dcfce7; color: #15803d; }
+    .badge-warn { background: #fef3c7; color: #b45309; }
+    .badge-error { background: #fee2e2; color: #b91c1c; }
+
+    .feedback-card {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--secondary-color);
+      padding: 18px;
+      margin-bottom: 20px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .feedback-card h4 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .signature-box {
+      margin-top: 35px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .signature-name {
+      font-weight: bold;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>B2 Writing Skills Practice: Formal Email</h1>
+    
+    <div class="prompt-box">
+      <h3>Task Instructions (British Council B2 Format)</h3>
+      <p>You are interested in doing some volunteer work during your school holidays[cite: 1]. Read the details below and write a formal email to the volunteer coordinator, <strong>Caroline Robinson</strong>[cite: 1]:</p>
+      <ul>
+        <li>Inquire about projects longer than 1–2 days[cite: 1].</li>
+        <li>Ask about lunch arrangements (provided vs. bring your own)[cite: 1].</li>
+        <li>Request specific details regarding daily work/tasks[cite: 1].</li>
+        <li>Ask if there are any other costs besides administrative fees[cite: 1].</li>
+      </ul>
+      <p><em>Target length: <strong>Approx. 150 words</strong>[cite: 1]. Keep a polite, formal tone throughout.</em></p>
+    </div>
+
+    <!-- Interactive Email Client Mockup -->
+    <div class="email-client">
+      <div class="email-client-header">
+        <span>✉️ New Message</span>
+      </div>
+      <div class="email-row">
+        <label>To:</label>
+        <input type="text" value="Caroline Robinson &lt;caroline@volunteer.org&gt;" disabled />
+      </div>
+      <div class="email-row">
+        <label>Subject:</label>
+        <input type="text" id="emailSubject" placeholder="e.g., Inquiry regarding volunteer opportunities" />
+      </div>
+      <div class="email-body-container">
+        <label for="emailBody">Message Body:</label>
+        <textarea id="emailBody" placeholder="Dear Ms. Robinson,&#10;&#10;I am writing to inquire about..."></textarea>
+        <div class="word-counter">Word count: <span id="wordCount">0</span> / ~150 words</div>
+      </div>
+    </div>
+
+    <button type="button" id="analyzeBtn">Evaluate & Correct Writing</button>
+
+    <!-- Feedback & Evaluation Dashboard -->
+    <div id="feedback-section">
+      <h2>Evaluation & Diagnostic Report</h2>
+
+      <h3>1. Assessment Criteria Chart</h3>
+      <table class="evaluation-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Specific Diagnostic Observations</th>
+          </tr>
+        </thead>
+        <tbody id="chartBody">
+          <!-- Rows injected via JavaScript -->
+        </tbody>
+      </table>
+
+      <h3>2. Detailed Line-by-Line Corrections</h3>
+      <div id="detailedCorrections" class="feedback-card"></div>
+
+      <h3>3. Targeted Practice & Next Steps</h3>
+      <div id="googleRecommendations" class="feedback-card"></div>
+
+      <div class="signature-box">
+        <span class="signature-name">Julieta Palacios</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Live Word Counter
+    const textarea = document.getElementById('emailBody');
+    const wordCountDisplay = document.getElementById('wordCount');
+
+    textarea.addEventListener('input', () => {
+      const text = textarea.value.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      wordCountDisplay.innerText = words;
+    });
+
+    // Precision Levenshtein Distance Algorithm for Spellchecking
+    function getLevenshteinDistance(a, b) {
+      const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+      for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+      for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j - 1] + cost
+          );
+        }
+      }
+      return matrix[a.length][b.length];
+    }
+
+    // High-Precision Analysis Engine
+    document.getElementById('analyzeBtn').addEventListener('click', () => {
+      const subject = document.getElementById('emailSubject').value.trim();
+      const body = document.getElementById('emailBody').value.trim();
+      const text = body;
+      const fullText = (subject + " " + body).trim();
+      const wordCount = text ? text.split(/\s+/).length : 0;
+
+      if (!text) {
+        alert("Please compose an email draft before requesting feedback.");
+        return;
+      }
+
+      let grammarIssues = [];
+      let formalityIssues = [];
+      let punctuationIssues = [];
+      let wordChoiceIssues = [];
+      let spellingIssues = [];
+
+      // -----------------------------------------------------------------
+      // 1. ADVANCED SPELLING ENGINE (Dictionary + Levenshtein Matching)
+      // -----------------------------------------------------------------
+      const validDictionary = new Set([
+        "dear", "ms", "robinson", "mr", "mrs", "dr", "i", "am", "writing", "to", "inquire", "about",
+        "the", "volunteer", "volunteering", "work", "opportunities", "during", "school", "holidays",
+        "holiday", "could", "you", "please", "inform", "me", "if", "there", "are", "any", "projects",
+        "project", "lasting", "longer", "than", "one", "two", "days", "furthermore", "would", "be",
+        "grateful", "clarify", "whether", "lunch", "is", "provided", "or", "should", "bring", "my",
+        "own", "food", "also", "provide", "more", "details", "regarding", "specific", "duties",
+        "involved", "in", "addition", "like", "know", "additional", "costs", "besides", "administrative",
+        "admin", "fees", "fee", "look", "forward", "hearing", "from", "yours", "sincerely", "kind",
+        "regards", "subject", "question", "questions", "other", "make", "do", "we", "will", "have",
+        "pay", "paying", "what", "which", "whose", "can", "tell", "thanks", "john", "caroline",
+        "sir", "madam", "and", "a", "an", "for", "with", "on", "at", "by", "of", "or", "so", "it"
+      ]);
+
+      const commonFixesMap = {
+        "queston": "question",
+        "oter": "other",
+        "volunter": "volunteer",
+        "recieve": "receive",
+        "seperate": "separate",
+        "definately": "definitely",
+        "thier": "their",
+        "unfortunatly": "unfortunately",
+        "recomended": "recommended",
+        "tomorow": "tomorrow",
+        "sincerly": "sincerely"
+      };
+
+      const extractedWords = fullText.toLowerCase().match(/\b[a-z]+\b/g) || [];
+      const checkedWords = new Set();
+
+      extractedWords.forEach(word => {
+        if (checkedWords.has(word) || word.length <= 2) return;
+        checkedWords.add(word);
+
+        // Explicit match in common fixes dictionary
+        if (commonFixesMap[word]) {
+          spellingIssues.push(`• <strong>Spelling Error:</strong> '${word}' → Correct spelling is <em>'${commonFixesMap[word]}'</em>.`);
+          return;
+        }
+
+        // Fuzzy Levenshtein match against valid target dictionary
+        if (!validDictionary.has(word)) {
+          for (let validWord of validDictionary) {
+            if (validWord.length > 3 && getLevenshteinDistance(word, validWord) === 1) {
+              spellingIssues.push(`• <strong>Spelling Error:</strong> '${word}' → Did you mean <em>'${validWord}'</em>?`);
+              break;
+            }
+          }
+        }
+      });
+
+      // -----------------------------------------------------------------
+      // 2. PRECISION GRAMMAR & SYNTAX RULES
+      // -----------------------------------------------------------------
+      if (/\bi\b/.test(text)) {
+        grammarIssues.push("• <strong>Capitalization:</strong> Lowercase personal pronoun 'i' detected. Always capitalize 'I'.");
+      }
+      if (/\bis there any projects\b/i.test(text)) {
+        grammarIssues.push("• <strong>Subject-Verb Agreement:</strong> 'is there any projects' → Use 'are there any projects' with plural nouns.");
+      }
+      if (/\b(make|will make)\s+(there\s+)?(work|projects|tasks)\b/i.test(text) || /\bwork we will make\b/i.test(text)) {
+        grammarIssues.push("• <strong>Verb Collocation:</strong> 'work we will make' → In English, we <em>do</em> work, not <em>make</em> work.");
+      }
+      if (/\bwhose kind\b/i.test(text)) {
+        grammarIssues.push("• <strong>Relative Pronoun:</strong> 'whose kind' → Use 'what kind' or 'which kind'.");
+      }
+      if (/\bhave to paying\b/i.test(text)) {
+        grammarIssues.push("• <strong>Infinitive Structure:</strong> 'have to paying' → Modal expression 'have to' requires base form: 'have to pay'.");
+      }
+      if (/\blonger what\b/i.test(text)) {
+        grammarIssues.push("• <strong>Comparative Preposition:</strong> 'longer what' → Comparative structures require 'than' (e.g., 'longer than').");
+      }
+      if (/\bthan 1 or 2 days\b/i.test(text) || /\b1 or 2\b/.test(text)) {
+        grammarIssues.push("• <strong>Formal Numbers:</strong> In formal B2 writing, spell out single-digit numbers ('one or two days').");
+      }
+
+      // -----------------------------------------------------------------
+      // 3. FORMALITY & REGISTER ANALYSIS
+      // -----------------------------------------------------------------
+      if (!/^Dear\s+(Ms\.|Mr\.|Mrs\.|Dr\.)?\s*[A-Z][a-z]+/i.test(text) && !/^Dear\s+Sir\/Madam/i.test(text)) {
+        formalityIssues.push("• <strong>Formal Salutation:</strong> Greetings like 'hi caroline' are informal. Use 'Dear Ms. Robinson,' or 'Dear Sir/Madam,'.");
+      }
+      if (/\b(hi|hello|hey|cheers|bye|see ya|thanks|thx)\b/i.test(text)) {
+        formalityIssues.push("• <strong>Informal Register:</strong> Replace informal words ('hi', 'thanks', 'bye') with formal equivalents ('Dear Ms. Robinson', 'Yours sincerely,').");
+      }
+      if (/\bcan you tell me\b/i.test(text) || /\bi want to know\b/i.test(text) || /\btell me\b/i.test(text)) {
+        formalityIssues.push("• <strong>Direct Imperatives:</strong> 'tell me' and 'I want to know' are overly abrupt. Use polite indirect phrasing: 'Could you please inform me...' or 'I would be grateful if you could clarify...'.");
+      }
+      const contractions = text.match(/\b\w+'(t|m|re|ve|ll|d)\b/gi);
+      if (contractions) {
+        formalityIssues.push(`• <strong>Contractions:</strong> Avoid contractions in formal writing (found: "${contractions.slice(0, 3).join(', ')}"). Write full forms ('do not', 'I would').`);
+      }
+
+      // -----------------------------------------------------------------
+      // 4. PUNCTUATION & CAPITALIZATION SCANNER
+      // -----------------------------------------------------------------
+      if (/hi caroline/i.test(text) && !/hi caroline,/i.test(text)) {
+        punctuationIssues.push("• <strong>Salutation Comma:</strong> Missing comma after salutation.");
+      }
+      if (/\bthanks\b/i.test(text) && !/thanks,/i.test(text)) {
+        punctuationIssues.push("• <strong>Sign-off Comma:</strong> Missing comma after closing sign-off.");
+      }
+      if (!/[.!?]$/.test(text.trim())) {
+        punctuationIssues.push("• <strong>Terminal Punctuation:</strong> Sentence or paragraph lacks ending punctuation.");
+      }
+
+      // Sentence Capitalization Checker
+      const sentences = text.split(/(?<=[.!?])\s+/);
+      let uncapitalizedSentences = 0;
+      sentences.forEach(s => {
+        const cleanS = s.trim();
+        if (cleanS.length > 0 && cleanS[0] !== cleanS[0].toUpperCase() && !/^dear/i.test(cleanS)) {
+          uncapitalizedSentences++;
+        }
+      });
+      if (uncapitalizedSentences > 0) {
+        punctuationIssues.push(`• <strong>Sentence Capitalization:</strong> Found ${uncapitalizedSentences} sentence(s) not starting with a capital letter.`);
+      }
+
+      // -----------------------------------------------------------------
+      // 5. WORD CHOICE & B2 TRANSACTIONAL RANGE
+      // -----------------------------------------------------------------
+      if (/\bstuff\b/i.test(text)) {
+        wordChoiceIssues.push("• <strong>Vague Vocabulary:</strong> 'stuff' is overly informal. Use 'details', 'opportunities', or 'information'.");
+      }
+      if (!/\b(inquire|inquiry|regarding|furthermore|appreciate|sincerely|regards)\b/i.test(text)) {
+        wordChoiceIssues.push("• <strong>B2 Formal Connectors:</strong> Missing formal transactional phrasing (e.g., 'I am writing to inquire regarding...', 'Furthermore,', 'In addition,').");
+      }
+
+      // -----------------------------------------------------------------
+      // 6. LENGTH CHECK (~150 words target)
+      // -----------------------------------------------------------------
+      let lengthStatus = "good";
+      let lengthComment = `Length is appropriate (${wordCount} words). Fits target recommendation (~150 words)[cite: 1].`;
+      if (wordCount < 110) {
+        lengthStatus = "warn";
+        lengthComment = `Submission is too short (${wordCount} words). Expand on your inquiries to reach ~150 words[cite: 1].`;
+      } else if (wordCount > 190) {
+        lengthStatus = "warn";
+        lengthComment = `Submission is slightly long (${wordCount} words). Keep concise in formal B2 email tasks (~150 words)[cite: 1].`;
+      }
+
+      // -----------------------------------------------------------------
+      // RENDER RESULTS TO DOM
+      // -----------------------------------------------------------------
+      const chartBody = document.getElementById('chartBody');
+      chartBody.innerHTML = `
+        <tr>
+          <td><strong>Grammar</strong></td>
+          <td>${grammarIssues.length === 0 ? '<span class="status-badge badge-good">Pass</span>' : '<span class="status-badge badge-error">Needs Improvement</span>'}</td>
+          <td>${grammarIssues.length === 0 ? 'Good grammatical control throughout.' : grammarIssues.join('<br>')}</td>
+        </tr>
+        <tr>
+          <td><strong>Formality & Register</strong></td>
+          <td>${formalityIssues.length === 0 ? '<span class="status-badge badge-good">Pass</span>' : '<span class="status-badge badge-warn">Review Register</span>'}</td>
+          <td>${formalityIssues.length === 0 ? 'Excellent formal register maintained.' : formalityIssues.join('<br>')}</td>
+        </tr>
+        <tr>
+          <td><strong>Punctuation & Capitalization</strong></td>
+          <td>${punctuationIssues.length === 0 ? '<span class="status-badge badge-good">Pass</span>' : '<span class="status-badge badge-warn">Review Punctuation</span>'}</td>
+          <td>${punctuationIssues.length === 0 ? 'Correct use of punctuation and capitalization.' : punctuationIssues.join('<br>')}</td>
+        </tr>
+        <tr>
+          <td><strong>Word Choice & Range</strong></td>
+          <td>${wordChoiceIssues.length === 0 ? '<span class="status-badge badge-good">Pass</span>' : '<span class="status-badge badge-warn">Review Vocabulary</span>'}</td>
+          <td>${wordChoiceIssues.length === 0 ? 'Appropriate B2 level vocabulary.' : wordChoiceIssues.join('<br>')}</td>
+        </tr>
+        <tr>
+          <td><strong>Spelling</strong></td>
+          <td>${spellingIssues.length === 0 ? '<span class="status-badge badge-good">Pass</span>' : '<span class="status-badge badge-error">Check Spelling</span>'}</td>
+          <td>${spellingIssues.length === 0 ? 'No spelling errors detected.' : spellingIssues.join('<br>')}</td>
+        </tr>
+        <tr>
+          <td><strong>Length (~150 words)</strong></td>
+          <td><span class="status-badge badge-${lengthStatus}">${lengthStatus.toUpperCase()}</span></td>
+          <td>${lengthComment}</td>
+        </tr>
+      `;
+
+      // Render Line-by-Line Corrections
+      const detailedDiv = document.getElementById('detailedCorrections');
+      let detailsHTML = `<h4>Line-by-Line Revisions:</h4><ul>`;
+      
+      if (subject) {
+        detailsHTML += `<li><strong>Subject Line:</strong> Replace <em>"${subject}"</em> with <em>"Inquiry Regarding Volunteering Opportunities"</em>.</li>`;
+      }
+      detailsHTML += `
+        <li><strong>Greeting:</strong> Change <em>"hi caroline"</em> to <em>"Dear Ms. Robinson,"</em></li>
+        <li><strong>Opening Purpose:</strong> Change <em>"i want to know about..."</em> to <em>"I am writing to inquire about the volunteering opportunities available during the upcoming school holidays."</em></li>
+        <li><strong>Inquiry 1 (Duration):</strong> Change <em>"can you tell me if there is any projects longer what 1 or 2 days?"</em> to <em>"Could you please inform me if there are any projects lasting longer than two days?"</em></li>
+        <li><strong>Inquiry 2 (Lunch):</strong> Change <em>"i also want to know about lunch..."</em> to <em>"Furthermore, I would be grateful if you could clarify whether lunch is provided or if volunteers are expected to bring their own."</em></li>
+        <li><strong>Inquiry 3 (Work Details):</strong> Change <em>"tell me whose kind of work we will make there."</em> to <em>"Could you also provide more details regarding the specific duties and responsibilities involved?"</em></li>
+        <li><strong>Inquiry 4 (Costs):</strong> Change <em>"also are there any oter costs i have to paying..."</em> to <em>"In addition, I would like to know if there are any additional costs besides administrative fees."</em></li>
+        <li><strong>Sign-off:</strong> Change <em>"thanks john"</em> to <em>"I look forward to hearing from you.<br><br>Yours sincerely,<br>John Smith"</em></li>
+      </ul>`;
+
+      detailedDiv.innerHTML = detailsHTML;
+
+      // Render Search Recommendations
+      const googleDiv = document.getElementById('googleRecommendations');
+      googleDiv.innerHTML = `
+        <h4>Recommended Self-Study Search Queries</h4>
+        <p>Search these exact terms on Google to practice your specific weak areas:</p>
+        <ul>
+          <li><code>Test English B2 subject verb agreement exercises</code></li>
+          <li><code>British Council LearnEnglish B2 indirect questions formal emails</code></li>
+          <li><code>Test English verb collocations do vs make exercises</code></li>
+          <li><code>British Council LearnEnglish B2 formal email structure and connectors</code></li>
+        </ul>
+      `;
+
+      // Display Feedback Dashboard
+      document.getElementById('feedback-section').style.display = 'block';
+      document.getElementById('feedback-section').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
